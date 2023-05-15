@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wibscan &mdash; wibscan 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="GUIA DE USO" href="uso.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            wibscan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">GUIA DE USO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="composicion.html">COMPOSICION DEL PROYECTO</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">wibscan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">wibscan</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="wibscan">
+<h1>wibscan<a class="headerlink" href="#wibscan" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Este es un proyecto de programación para ciberseguridad el cual ha sido desarrollado con fines practicos y educativos el cual tiene como objetivo principal el escaneo de paginas web permitiendo a los usuarios comprender mejor la estructura de los directorios en un sitio web y aprender sobre las posibles vulnerabilidades de seguridad asociadas.</p>
+</div>
+<section id="informacion-general">
+<h2>Informacion general<a class="headerlink" href="#informacion-general" title="Permalink to this heading"></a></h2>
+<p>En este proyecto creamos un pequeño script multiherramienta para ciberseguridad web el cual se ejecuta desde la linea de comandos recibiendo como argumento una cadena de texto <code class="docutils literal notranslate"><span class="pre">str</span></code> que contendra una <code class="docutils literal notranslate"><span class="pre">URL</span></code> de una pagina especifica a analizar y opcionalmente una <code class="docutils literal notranslate"><span class="pre">API-KEY</span></code> de virus total.</p>
+<p>Mediante el uso de un Web_Scrapig y algunas otras herramientas de terceros este proyecto sera capaz de lo siguiente:</p>
+<ul class="simple">
+<li><p>Extraccion de metadata de las imagenes</p></li>
+<li><p>Reconocimiento de las tecnologias utilizadas</p></li>
+<li><p>Escaneo de directorios de la pagina</p></li>
+<li><p>Escaneo de la URL mediante el uso de una API a <a class="reference external" href="https://www.virustotal.com/gui/home/upload">VirusTotal</a></p></li>
+<li><p>Escaneo de puertos locales</p></li>
+</ul>
+<p>y posteriormente generara un reporte de los resultados obtenidos.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Queremos dejar claro que el escaneo de directorios web solo debe llevarse a cabo en ambientes controlados, como pruebas de seguridad autorizadas o entornos de investigación legítimos. Si deseas utilizar esta herramienta, te insitamos a obtener el permiso expreso del propietario del sitio web antes de realizar cualquier escaneo.</p>
+<p>Te recordamos que el uso no autorizado de esta herramienta para escanear directorios web puede violar las leyes y regulaciones aplicables. No respaldamos ni promovemos cualquier uso indebido o ilegal de esta herramienta, cada individuo es responsable de utilizarla de manera adecuada y en cumplimiento de la legislación vigente.</p>
+</div>
+<p>Para más acerca de este proyecto tenemos los siguientes apartados:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="uso.html">GUIA DE USO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="composicion.html">COMPOSICION DEL PROYECTO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="composicion.html#wibscan-py">wibscan.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composicion.html#scapping-py">scapping.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composicion.html#metadata-py">metadata.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composicion.html#portscan-py">portscan.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composicion.html#gobuster-py">gobuster.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="composicion.html#vt-scan-website-py">vt_scan_website.py</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="uso.html" class="btn btn-neutral float-right" title="GUIA DE USO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jorge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

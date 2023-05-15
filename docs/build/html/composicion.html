@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMPOSICION DEL PROYECTO &mdash; wibscan 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="GUIA DE USO" href="uso.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            wibscan
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="uso.html">GUIA DE USO</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">COMPOSICION DEL PROYECTO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#wibscan-py">wibscan.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scapping-py">scapping.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metadata-py">metadata.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#portscan-py">portscan.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gobuster-py">gobuster.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vt-scan-website-py">vt_scan_website.py</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">wibscan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">COMPOSICION DEL PROYECTO</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/composicion.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="composicion-del-proyecto">
+<h1>COMPOSICION DEL PROYECTO<a class="headerlink" href="#composicion-del-proyecto" title="Permalink to this heading"></a></h1>
+<p>El proyecto se compone de diferentes módulos para su funcionamiento.
+El módulo principal es <code class="docutils literal notranslate"><span class="pre">main.py</span></code> el cual mandara a llamar a los otros modulos durante su ejecución.</p>
+<section id="wibscan-py">
+<h2>wibscan.py<a class="headerlink" href="#wibscan-py" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se importan los módulos necesarios para el script</span>
+
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">socket</span><span class="o">,</span> <span class="nn">metadata</span><span class="o">,</span> <span class="nn">portscan</span><span class="o">,</span> <span class="nn">scapping</span><span class="o">,</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">vt_scan_website</span><span class="o">,</span> <span class="nn">gobuster</span>
+
+
+<span class="c1"># Se crea un objeto ArgumentParser para procesar los argumentos de línea de comandos</span>
+<span class="c1"># Se definen los argumentos &quot;-ur&quot;, &quot;-ap&quot; y &quot;-pl&quot; con sus respectivas descripciones</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-ur&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;URL del scrapping y escaneo&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-ap&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;ap1&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Api Key VirusTotal&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-pl&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;portl&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Lista de puertos a escanear&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="c1"># Se obtiene el nombre del host y la dirección IP del host</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+<span class="n">ipa</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">hn</span><span class="p">)</span>
+
+
+<span class="c1"># Se inicializan algunas variables necesarias para el script</span>
+<span class="n">x</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">portlist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">445</span><span class="p">]</span>
+<span class="n">urlimg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">url</span>
+<span class="n">apik</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">ap1</span>
+
+
+<span class="c1"># Se define la ruta de la carpeta de imágenes</span>
+<span class="n">pathimg</span> <span class="o">=</span> <span class="s1">&#39;../wibscan/Imagenes&#39;</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">url</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hay que agregar una URL&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">ap1</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Si no se proporciona una API Key de VirusTotal, se ejecutan ciertas funciones</span>
+            <span class="n">scapping</span><span class="o">.</span><span class="n">scrapeo</span><span class="p">(</span><span class="n">urlimg</span><span class="p">,</span> <span class="n">pathimg</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">metadata</span><span class="o">.</span><span class="n">metaextract</span><span class="p">(</span><span class="n">pathimg</span><span class="p">)</span>
+            <span class="n">portscan</span><span class="o">.</span><span class="n">techscan</span><span class="p">(</span><span class="n">urlimg</span><span class="p">)</span>
+            <span class="n">gobuster</span><span class="o">.</span><span class="n">dirscan</span><span class="p">(</span><span class="n">urlimg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Si se proporciona una API Key de VirusTotal, se ejecutan todas las funciones</span>
+            <span class="n">vt_scan_website</span><span class="o">.</span><span class="n">vt_website_analysis</span><span class="p">(</span><span class="n">urlimg</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">ap1</span><span class="p">)</span>
+            <span class="n">scapping</span><span class="o">.</span><span class="n">scrapeo</span><span class="p">(</span><span class="n">urlimg</span><span class="p">,</span> <span class="n">pathimg</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">metadata</span><span class="o">.</span><span class="n">metaextract</span><span class="p">(</span><span class="n">pathimg</span><span class="p">)</span>
+            <span class="n">portscan</span><span class="o">.</span><span class="n">techscan</span><span class="p">(</span><span class="n">urlimg</span><span class="p">)</span>
+            <span class="n">gobuster</span><span class="o">.</span><span class="n">dirscan</span><span class="p">(</span><span class="n">urlimg</span><span class="p">)</span>
+    <span class="n">portscan</span><span class="o">.</span><span class="n">puertoscan</span><span class="p">(</span><span class="n">ipa</span><span class="p">,</span> <span class="n">portlist</span><span class="p">)</span>
+
+<span class="c1"># Se realiza un escaneo de puertos para la dirección IP del host</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Importa los módulos necesarios para el funcionamiento del script.</p></li>
+<li><p>Crea un objeto ArgumentParser para procesar los argumentos de línea de comandos. Define los argumentos -ur, -ap y -pl con sus respectivas descripciones.</p></li>
+<li><p>Obtiene el nombre del host y la dirección IP del host.</p></li>
+<li><p>Inicializa variables necesarias para el script, como x, portlist, urlimg y apik.</p></li>
+<li><p>Define la ruta de la carpeta de imágenes.</p></li>
+<li><p>Comienza la ejecución principal del script.</p></li>
+<li><p>Verifica si se proporcionó una URL como argumento. Si no se proporciona, imprime un mensaje indicando que se debe agregar una URL.</p></li>
+<li><p>Si se proporciona una URL pero no se proporciona una API Key de VirusTotal, ejecuta ciertas funciones relacionadas con el scrapping de datos, extracción de metadatos y escaneo de puertos.</p></li>
+<li><p>Si se proporciona una URL y una API Key de VirusTotal, ejecuta todas las funciones mencionadas anteriormente, además de realizar un análisis de la página web utilizando la API de VirusTotal.</p></li>
+<li><p>Finalmente, se realiza un escaneo de puertos para la dirección IP del host utilizando la lista de puertos especificada en portlist.</p></li>
+</ol>
+</section>
+<section id="scapping-py">
+<h2>scapping.py<a class="headerlink" href="#scapping-py" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> <span class="k">as</span> <span class="n">bs</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">imgdownload</span><span class="p">(</span><span class="n">urli</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="n">completepath</span> <span class="o">=</span> <span class="n">dirpath</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span>  <span class="c1"># Ruta completa de archivo, incluyendo el nombre y la extensión</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">urli</span><span class="p">,</span> <span class="n">completepath</span><span class="p">)</span>  <span class="c1"># Descargar la imagen desde la URL y guardarla en el directorio especificado</span>
+
+<span class="k">def</span> <span class="nf">scrapeo</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Iniciando scrapping de: &quot;</span> <span class="o">+</span> <span class="n">url</span><span class="p">)</span>  <span class="c1"># Imprimir mensaje de inicio del scraping para la URL dada</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c1"># Abrir la URL y obtener su contenido HTML</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">bs</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>  <span class="c1"># Crear un objeto BeautifulSoup para analizar el contenido HTML</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;Imagenes&quot;</span><span class="p">)</span>  <span class="c1"># Intentar crear un directorio llamado &quot;Imagenes&quot; (si aún no existe)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">imglink</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">)</span>  <span class="c1"># Encontrar todas las etiquetas de imagen en el contenido HTML</span>
+    <span class="k">for</span> <span class="n">imagen</span> <span class="ow">in</span> <span class="n">imglink</span><span class="p">:</span>
+        <span class="n">io</span> <span class="o">=</span> <span class="n">imagen</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span>  <span class="c1"># Obtener la URL de origen de la imagen</span>
+        <span class="n">nombre</span> <span class="o">=</span> <span class="s1">&#39;Imagen&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Generar un nombre único para la imagen</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">imgdownload</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">nombre</span><span class="p">)</span>  <span class="c1"># Descargar la imagen en el directorio especificado</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Incrementar el contador para el nombre de la siguiente imagen</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Pausa de 3 segundos entre descargas de imagen (para evitar sobrecargar el servidor)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">break</span>  <span class="c1"># Si ocurre alguna excepción durante la descarga de la imagen, finalizar el bucle</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El scrapping de: &quot;</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot; ha terminado.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Imprimir mensaje indicando que se ha completado el scraping para la URL dada</span>
+</pre></div>
+</div>
+<p>El script consta de dos funciones principales:</p>
+<p><code class="docutils literal notranslate"><span class="pre">imgdownload</span> <span class="pre">(urli,</span> <span class="pre">dirpath,</span> <span class="pre">name)</span></code>Esta función toma una URL de imagen (urli), un directorio de destino (dirpath) y un nombre de archivo (name). Descarga la imagen de la URL y la guarda en el directorio especificado con el nombre de archivo dado.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scrapeo(url,</span> <span class="pre">path,</span> <span class="pre">x)</span></code>Esta función realiza el web scraping de la página web dada por la URL. Toma la URL de la página web (url), la ruta del directorio de destino (path) y un contador (x) utilizado para nombrar las imágenes descargadas. Dentro de la función, se abre la URL de la página web y se crea un objeto BeautifulSoup para analizar su contenido HTML. A continuación, se intenta crear un directorio llamado “Imagenes” (si aún no existe). Después, se busca todas las etiquetas de imagen (<img>) en el contenido HTML de la página y se itera sobre ellas. Para cada imagen, se obtiene la URL de origen (io), se genera un nombre único para la imagen (nombre), se llama a la función imgdownload() para descargar la imagen en el directorio especificado y se incrementa el contador x. Se introduce una pausa de 3 segundos entre cada descarga de imagen. Si ocurre alguna excepción durante la descarga de la imagen, se finaliza el bucle for. Finalmente, se imprime un mensaje indicando que se ha completado el web scraping de la URL dada.</p>
+</section>
+<section id="metadata-py">
+<h2>metadata.py<a class="headerlink" href="#metadata-py" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">PIL.ExifTags</span> <span class="kn">import</span> <span class="n">TAGS</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">metaextract</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iniciando extraccion de metadatos...&quot;</span><span class="p">)</span>  <span class="c1"># Imprime un mensaje de inicio</span>
+    <span class="n">contfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>  <span class="c1"># Obtiene la lista de archivos en el directorio especificado por &#39;path&#39;</span>
+    <span class="k">for</span> <span class="n">imgfile</span> <span class="ow">in</span> <span class="n">contfile</span><span class="p">:</span>  <span class="c1"># Itera sobre cada archivo en el directorio</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mimg</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;../wibscan/Imagenes/&#39;</span> <span class="o">+</span> <span class="n">imgfile</span><span class="p">)</span>  <span class="c1"># Abre la imagen utilizando PIL</span>
+            <span class="n">exif_data</span> <span class="o">=</span> <span class="n">mimg</span><span class="o">.</span><span class="n">getexif</span><span class="p">()</span>  <span class="c1"># Obtiene los metadatos EXIF de la imagen</span>
+            <span class="n">rn</span> <span class="o">=</span> <span class="s1">&#39;../wibscan/Imagenes/&#39;</span> <span class="o">+</span> <span class="n">imgfile</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39;Metadata&#39;</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span>  <span class="c1"># Construye el nombre del archivo de salida para guardar los metadatos</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">rn</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">rfile</span><span class="p">:</span>  <span class="c1"># Abre el archivo de salida en modo de escritura</span>
+                <span class="k">for</span> <span class="n">tagId</span> <span class="ow">in</span> <span class="n">exif_data</span><span class="p">:</span>  <span class="c1"># Itera sobre cada etiqueta de metadatos en los datos EXIF</span>
+                    <span class="n">tag</span> <span class="o">=</span> <span class="n">TAGS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tagId</span><span class="p">,</span> <span class="n">tagId</span><span class="p">)</span>  <span class="c1"># Obtiene el nombre legible de la etiqueta</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">exif_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tagId</span><span class="p">)</span>  <span class="c1"># Obtiene el valor de la etiqueta</span>
+                    <span class="n">rfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tag</span><span class="si">:</span><span class="s2">16</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Escribe la etiqueta y su valor en el archivo de salida</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># Si hay algún error al procesar la imagen, se ignora y se continúa con el siguiente archivo</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La extraccion de metadata ha terminado.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Imprime un mensaje de finalización</span>
+</pre></div>
+</div>
+<p>En este script se define una función llamada <code class="docutils literal notranslate"><span class="pre">metaextract</span></code> que toma como argumento el directorio path donde se encuentran las imágenes.</p>
+<ol class="arabic simple">
+<li><p>Imprime un mensaje indicando que se está iniciando la extracción de metadatos.</p></li>
+<li><p>Obtiene una lista de todos los archivos en el directorio especificado usando os.listdir(path) y la guarda en la variable contfile.</p></li>
+<li><p>Itera sobre cada archivo en la lista contfile utilizando un bucle for.</p></li>
+<li><p>Dentro del bucle, intenta abrir la imagen utilizando Image.open(‘../wibscan/Imagenes/’ + imgfile) y la guarda en la variable mimg.</p></li>
+<li><p>Luego, obtiene los datos EXIF de la imagen utilizando el método getexif() de mimg y los guarda en la variable exif_data.</p></li>
+<li><p>Crea una ruta de archivo para el archivo de texto de salida utilizando el nombre de archivo de la imagen y la extensión “.txt”. Por ejemplo, si el nombre de archivo de la imagen es “imagen.jpg”, la ruta de archivo será “../wibscan/Imagenes/imagen.jpg Metadata.txt”. La ruta de archivo se guarda en la variable rn.</p></li>
+<li><p>Abre el archivo de texto de salida en modo de escritura utilizando open(rn, ‘w’) y lo guarda en la variable rfile.</p></li>
+<li><p>Itera sobre cada identificador de etiqueta en exif_data utilizando otro bucle for.</p></li>
+<li><p>Para cada identificador de etiqueta, obtiene el nombre de la etiqueta correspondiente utilizando el diccionario TAGS.get(tagId, tagId) y lo guarda en la variable tag.</p></li>
+<li><p>Obtiene el valor de datos correspondiente al identificador de etiqueta utilizando exif_data.get(tagId) y lo guarda en la variable data.</p></li>
+<li><p>Escribe la etiqueta y los datos en el archivo de texto utilizando rfile.write(f”{tag:16}:{data}\n”). Los datos se escriben en el formato “etiqueta: datos”.</p></li>
+<li><p>Después de procesar todos los identificadores de etiquetas en exif_data, se cierra el archivo de texto.</p></li>
+<li><p>Si ocurre una excepción durante el proceso de apertura de la imagen o la extracción de metadatos, se captura la excepción utilizando except: y se pasa al siguiente archivo sin generar un error.</p></li>
+<li><p>Después de completar el bucle for principal, se imprime un mensaje indicando que la extracción de metadatos ha terminado.</p></li>
+</ol>
+</section>
+<section id="portscan-py">
+<h2>portscan.py<a class="headerlink" href="#portscan-py" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">builtwith</span><span class="o">,</span> <span class="nn">csv</span>
+
+<span class="k">def</span> <span class="nf">puertoscan</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">listpuertos</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">listpuertos</span><span class="p">:</span>
+            <span class="c1"># Crea un objeto de socket</span>
+            <span class="n">sockt</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+            <span class="n">sockt</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="c1"># Intenta establecer una conexión con el puerto especificado en la dirección IP dada</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">sockt</span><span class="o">.</span><span class="n">connect_ex</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Si la conexión se establece correctamente, el puerto está abierto</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El puerto:&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span> <span class="o">+</span><span class="s2">&quot; esta abierto&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Si la conexión falla, el puerto está cerrado</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El puerto: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span> <span class="o">+</span><span class="s2">&quot; esta cerrado&quot;</span><span class="p">)</span>
+            <span class="n">sockt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="c1"># Si ocurre un error durante la conexión, muestra un mensaje de error</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se pudo establecer conexión&quot;</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">techscan</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Realizando escaneo de tecnologías de la página...&quot;</span><span class="p">)</span>
+    <span class="c1"># Abre un archivo en modo escritura para almacenar los resultados del escaneo</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;TecnologiaPAG.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="c1"># Realiza el escaneo de tecnologías utilizando la biblioteca builtwith</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">builtwith</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># Escribe la información del escaneo en el archivo</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Detección de tecnologías de: &quot;</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Escaneo de tecnologías de: &quot;</span><span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot; terminado.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>El script proporciona dos funciones principales: <code class="docutils literal notranslate"><span class="pre">puertoscan(ip,</span> <span class="pre">listpuertos)</span></code> y <code class="docutils literal notranslate"><span class="pre">techscan(url)</span></code></p>
+<ol class="arabic simple">
+<li><p>La función <code class="docutils literal notranslate"><span class="pre">puertoscan(ip,</span> <span class="pre">listpuertos)</span></code> se encarga de escanear los puertos de una dirección IP especificada. Recibe como parámetros la dirección IP (ip) y una lista de puertos (listpuertos) a escanear.</p></li>
+<li><p>Dentro de la función<code class="docutils literal notranslate"> <span class="pre">puertoscan()</span></code>, se realiza un bucle que itera sobre cada puerto en la lista de puertos proporcionada.</p></li>
+<li><p>Para cada puerto, se crea un objeto de socket utilizando socket.socket(socket.AF_INET, socket.SOCK_STREAM). Se configura un tiempo de espera de 5 segundos para establecer una conexión con ese puerto en la dirección IP especificada.</p></li>
+<li><p>Se utiliza sockt.connect_ex((ip, port)) para intentar establecer la conexión con el puerto. Si el resultado de connect_ex() es 0, significa que la conexión se estableció correctamente y, por lo tanto, el puerto está abierto. Se muestra un mensaje indicando que el puerto está abierto. De lo contrario, se muestra un mensaje indicando que el puerto está cerrado.</p></li>
+<li><p>Después de realizar el escaneo de todos los puertos, se cierra el objeto de socket.</p></li>
+<li><p>La función <code class="docutils literal notranslate"><span class="pre">techscan(url)</span></code> se encarga de escanear las tecnologías utilizadas en una página web. Recibe como parámetro la URL de la página (url).</p></li>
+<li><p>Dentro de la función <code class="docutils literal notranslate"><span class="pre">techscan()</span></code>, se abre un archivo llamado “TecnologiaPAG.txt” en modo escritura para almacenar los resultados del escaneo.</p></li>
+<li><p>Se utiliza la biblioteca builtwith.parse(url) para realizar el escaneo de tecnologías de la página. Los resultados se almacenan en la variable result.</p></li>
+<li><p>A continuación, se escribe en el archivo la información del escaneo, incluyendo la URL y las tecnologías detectadas.</p></li>
+<li><p>Después de escribir en el archivo, se muestra un mensaje indicando que el escaneo de tecnologías ha finalizado.</p></li>
+</ol>
+</section>
+<section id="gobuster-py">
+<h2>gobuster.py<a class="headerlink" href="#gobuster-py" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">subprocess</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">dirscan</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;GoBuster&quot;</span><span class="p">)</span>  <span class="c1"># Crea un directorio llamado &quot;GoBuster&quot; si no existe</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Construye el comando para ejecutar GoBuster y realiza el escaneo de directorios</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;gobuster dir -u &quot;</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot; -w /usr/share/dirb/wordlists/small.txt -o ../wibscan/GoBuster/results.txt&quot;</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Escaneo de directorios de: &quot;</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot; completado.&quot;</span><span class="p">)</span>  <span class="c1"># Imprime un mensaje indicando que el escaneo ha finalizado.</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Intenta crear un directorio llamado “GoBuster”. Si el directorio ya existe, se omite este paso sin generar ningún error.</p></li>
+<li><p>Construye un comando de línea de comandos que utiliza la herramienta GoBuster para realizar el escaneo de directorios en la URL proporcionada.</p>
+<ul class="simple">
+<li><p>El comando utiliza la opción -u para especificar la URL a escanear.</p></li>
+<li><p>La opción -w se utiliza para indicar la ubicación de un archivo de lista de palabras (en este caso, small.txt).</p></li>
+<li><p>La opción -o se utiliza para especificar la ubicación y el nombre del archivo de resultados (results.txt) dentro de la carpeta “GoBuster”.</p></li>
+</ul>
+</li>
+<li><p>Ejecuta el comando utilizando subprocess.run(). Esto permite ejecutar comandos en el sistema operativo desde el script de Python.</p></li>
+<li><p>Imprime un mensaje indicando que el escaneo de directorios para la URL proporcionada ha sido completado.</p></li>
+</ol>
+</section>
+<section id="vt-scan-website-py">
+<h2>vt_scan_website.py<a class="headerlink" href="#vt-scan-website-py" title="Permalink to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">datetime</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">csv</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+
+<span class="k">def</span> <span class="nf">vt_scan_website</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">apikey</span><span class="p">):</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;x-apikey&quot;</span><span class="p">:</span> <span class="n">apikey</span><span class="p">,</span>
+    <span class="s2">&quot;content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span>
+    <span class="p">}</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;url=&#39;</span> <span class="o">+</span> <span class="n">quote</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">vt_scan_url</span> <span class="o">=</span> <span class="s1">&#39;https://www.virustotal.com/api/v3/urls&#39;</span>
+    <span class="n">vt_scan_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">vt_scan_url</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">vt_scan_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>  <span class="c1"># Retorna 1 si el escaneo es exitoso</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># Retorna 0 si el escaneo falla</span>
+
+
+<span class="k">def</span> <span class="nf">vt_website_analysis</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">apikey</span><span class="p">):</span>
+    <span class="n">vtheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x-apikey&#39;</span><span class="p">:</span><span class="n">apikey</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">vt_scan_website</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">apikey</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Verifica si el escaneo falló</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR. No se pudo escanear la URL&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># Si el escaneo fue exitoso, continúa con el análisis</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Pagescan.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>  <span class="c1"># Abre el archivo de texto para escribir los resultados</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Escaneo de: &quot;</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">url_id</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64encode</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>  <span class="c1"># Codifica la URL para su uso en la API</span>
+        <span class="n">vt_analysis_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.virustotal.com/api/v3/urls/</span><span class="si">{</span><span class="n">url_id</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">vt_analysis_response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">vt_analysis_url</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">vtheader</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vt_analysis_response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">vt_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">vt_analysis_response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Realizando escaneo de la pagina...&#39;</span><span class="p">)</span>
+            <span class="n">threats_list</span> <span class="o">=</span> <span class="n">vt_data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;attributes&#39;</span><span class="p">][</span><span class="s1">&#39;threat_names&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">threats_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Posibles amenazas: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">threat</span> <span class="ow">in</span> <span class="n">threats_list</span><span class="p">:</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">threat</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Escribe las amenazas encontradas en el archivo</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;No existen amenazas </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Escribe un mensaje si no se encontraron amenazas</span>
+            <span class="n">last_time_checked</span> <span class="o">=</span> <span class="n">datetime_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">vt_data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;attributes&#39;</span><span class="p">][</span><span class="s1">&#39;last_submission_date&#39;</span><span class="p">])</span>
+            <span class="n">last_time_checked</span> <span class="o">=</span> <span class="n">datetime_object</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Escaneo realizado completo al:&#39;</span><span class="p">,</span> <span class="n">last_time_checked</span><span class="p">)</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Estadisticas del ultimo analisis: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">last_analysis_stats</span> <span class="o">=</span> <span class="n">vt_data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;attributes&#39;</span><span class="p">][</span><span class="s1">&#39;last_analysis_stats&#39;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">risk</span><span class="p">,</span> <span class="n">risk_result</span> <span class="ow">in</span> <span class="n">last_analysis_stats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">risk</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">risk_result</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Escribe las estadísticas del análisis en el archivo</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># Si la respuesta no es exitosa, no se hace nada</span>
+</pre></div>
+</div>
+<p>El script proporciona funciones para escanear y analizar un sitio web utilizando la API de VirusTotal.</p>
+<ol class="arabic simple">
+<li><p>La función <code class="docutils literal notranslate"><span class="pre">vt_scan_website(url,</span> <span class="pre">apikey)</span></code> realiza un escaneo del sitio web especificado utilizando la API de VirusTotal. Toma la URL del sitio web y la clave de la API como argumentos. Envía una solicitud POST a la URL de escaneo de VirusTotal con la URL del sitio web y la clave de la API como datos y encabezados. Si la respuesta tiene un código de estado 200, se considera que el escaneo fue exitoso y la función devuelve 1. De lo contrario, devuelve 0.</p></li>
+<li><p>La función <code class="docutils literal notranslate"><span class="pre">vt_website_analysis(url,</span> <span class="pre">apikey)</span></code> realiza un análisis detallado de un sitio web utilizando la API de VirusTotal. Toma la URL del sitio web y la clave de la API como argumentos. Primero, verifica si el escaneo del sitio web es exitoso utilizando la función <code class="docutils literal notranslate"><span class="pre">vt_scan_website()</span></code>. Si el escaneo falla, muestra un mensaje de error y finaliza la función. Si el escaneo es exitoso, continúa con el análisis.</p></li>
+<li><p>La función abre un archivo de texto llamado “Pagescan.txt” en modo escritura para almacenar los resultados del análisis.</p></li>
+<li><p>Codifica la URL del sitio web utilizando base64 para su uso en la API de VirusTotal.</p></li>
+<li><p>Realiza una solicitud GET a la URL de análisis de VirusTotal con la URL codificada y la clave de la API como encabezados. Obtiene los datos de análisis de la respuesta y los convierte en formato JSON.</p></li>
+<li><p>Muestra un mensaje indicando que se está realizando el escaneo de la página.</p></li>
+<li><p>Obtiene la lista de posibles amenazas del atributo ‘threat_names’ de los datos de análisis. Si la lista no está vacía, escribe las amenazas encontradas en el archivo de texto.</p></li>
+<li><p>Si no se encuentran amenazas, escribe un mensaje en el archivo de texto indicando que no hay amenazas.</p></li>
+<li><p>Obtiene la fecha y hora del último análisis del atributo ‘last_submission_date’ y la formatea como una cadena legible.</p></li>
+<li><p>Muestra un mensaje indicando que el escaneo se ha completado y muestra la fecha y hora del último análisis.</p></li>
+<li><p>Escribe las estadísticas del último análisis en el archivo de texto, donde cada estadística se muestra como “riesgo: resultado”.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="uso.html" class="btn btn-neutral float-left" title="GUIA DE USO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jorge.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+Guia de uso
+===============
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+Holaaaa esto es una prueba
+
+avances
+-------
+
+kdddddddddddddddddddddddddddddddddddddddddddd
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+erick es un tilin pro
