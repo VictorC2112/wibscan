@@ -7,7 +7,15 @@ Escáner de sitios web. Obtén información sobre las tecnologías utilizadas en
 - Escaneo de metadatos de imágenes en el sitio web.
 - Escaneo en busca de vulnerabilidades o amenazas.
 
-# Uso
+# Instrucciones de uso
 
+
+Para más información, lee la [documentación]().
 
 # Autores
+- [@VictorC2112](https://github.com/VictorC2112)
+- [@not-AMM](https://github.com/not-AMM)
+- [@OxxoCoffee](https://github.com/OxxoCoffee)
+- [@SKYDaxxx](https://github.com/SKYDaxxx)
+- [@SantyNog](https://github.com/SantyNog)
+- [@isco04](https://github.com/isco04)
